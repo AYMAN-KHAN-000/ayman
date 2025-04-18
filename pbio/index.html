@@ -5,7 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@AYMAN KHAN</title>
   <link rel="stylesheet" href="styles.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/nprogress/0.2.0/nprogress.min.js"></script>
   <link rel="shortcut icon" href="not allowed.webp" type="image/x-icon">
+  <style>
+  /* Make the progress bar purple */
+  #nprogress .bar {
+    background: purple !important;
+  }
+
+  /* Optional: spinner color */
+  #nprogress .spinner-icon {
+    border-top-color: purple;
+    border-left-color: purple;
+  }
+</style>
+<script>
+  // Start loading bar
+  NProgress.start();
+
+  // Simulate a delay or finish after loading
+  window.addEventListener('load', () => {
+    NProgress.done(); // Finish the bar
+  });
+</script>
+
 </head>
 <body>
   <div class="container">
