@@ -61,12 +61,9 @@
   
   .profile-picture {
     z-index: 50;
-    width: 6rem;
-    height: 6rem;
-    border-radius: 50%;
+    width: 7rem;
+    height: 7rem;
     margin: -3rem auto 1rem;
-    border: 0.3rem solid rgba(35,39,42,0.85);
-    background: #1a1a1a;
     display: block;
   }
   
@@ -219,4 +216,5 @@
 
     /* Remain hidden until end of 19s */
     100% { opacity: 0; }
+
   }
