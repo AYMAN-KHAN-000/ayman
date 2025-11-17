@@ -7,11 +7,46 @@
   <link rel="stylesheet" href="styles.css">
   
   <link rel="shortcut icon" href="not allowed.webp" type="image/x-icon">
+  <style>
   
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      cursor: pointer;
+      z-index: 9999;
+      transition: opacity 2s ease;
+    }
+
+    #overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #content {
+      height: 100%;
+      background: url('https://picsum.photos/seed/ayman/1600/900') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      color: white;
+    }
+  </style>
 
 
 </head>
 <body>
+  <div id="overlay">Click to enter</div>
+
   
   <div class="container" >
     <main style="margin-top: 80px;">
@@ -94,10 +129,17 @@
       </div>
     </main>
   </div>
+   <script>
+    document.getElementById('overlay').addEventListener('click', function () {
+      this.classList.add('fade-out');
+    });
+  </script>
+
   <script src="autoplay.js"></script>
   <script src="index.js"></script>
 </body>
 </html>
+
 
 
 
