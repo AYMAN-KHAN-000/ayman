@@ -9,7 +9,16 @@ const frames = [
     "@AYMAN K",
     "@AYMAN KH",
     "@AYMAN KHA",
-    "@AYMAN KHAN"
+    "@AYMAN KHAN",
+    "@AYMAN KHA",
+    "@AYMAN KH",
+    "@AYMAN K",
+    "@AYMAN ",
+    "@AYMAN",
+    "@AYMA",
+    "@AYM",
+    "@AY",
+    "@A",
   ];
   
   let idx = 0;
@@ -26,4 +35,5 @@ const frames = [
   }
 
   updateTitle();
+
   
