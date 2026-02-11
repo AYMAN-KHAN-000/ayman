@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@AYMAN KHAN</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <link rel="shortcut icon" href="not allowed.webp" type="image/x-icon">
+  
+
+
+</head>
+<body>
+
+
+
+
+
+
+
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+  
+    overflow: hidden;
+  }
+
+  canvas {
+  position: absolute; /* or relative */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+
+
+    canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999; /* on top of everything */
+}
+body {
+  overflow-x: hidden; /* optional, prevent horizontal scroll issues */
+  overflow-y: auto;   /* make sure vertical scroll works */
+}
+
+  
+</style>
+<canvas id="fx"></canvas>
+
+<script>
+const canvas = document.getElementById("fx");
+const ctx = canvas.getContext("2d");
+
+let w, h;
+function resize(){
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+
+// ---------------- CLICK COUNTER ----------------
+let clickCount = 0;
+
+document.addEventListener("click", e => {
+  clickCount++;
+
+  if (clickCount >= 2) {  // Trigger after 2 clicks now
+    dropBomb(e.clientX);
+    clickCount = 0;
+  }
+});
+
+
+// ---------------- PARTICLES ----------------
+const particles = [];
+
+function createExplosion(x, y) {
+  const particleCount = Math.floor(Math.min(w, h) / 5); // scale with screen size
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x,
+      y,
+      vx: (Math.random() - 0.5) * 15,
+      vy: (Math.random() - 0.7) * 15, // more upward force
+      life: 1,
+      size: Math.random() * 6 + 3
+    });
+  }
+}
+
+
+// ---------------- BOMB ----------------
+const bombs = [];
+
+function dropBomb(x) {
+  bombs.push({
+    x,
+    y: -80, // start higher for bigger screens
+    speed: Math.min(w, h) / 120  // scale speed with screen size
+  });
+}
+
+
+// ---------------- ANIMATION LOOP ----------------
+function animate(){
+  requestAnimationFrame(animate);
+  ctx.clearRect(0,0,w,h);
+
+  // ---- Bombs ----
+  for (let i = bombs.length - 1; i >= 0; i--) {
+    const b = bombs[i];
+
+    b.y += b.speed;
+
+    // Bomb body
+    ctx.beginPath();
+    ctx.fillStyle = "#0a1e2a";
+    ctx.shadowColor = "#00aaff";
+    ctx.shadowBlur = 35; // bigger glow
+    ctx.arc(b.x, b.y, Math.min(w, h)/80, 0, Math.PI * 2); // bigger bomb
+    ctx.fill();
+
+    // Impact at screen bottom
+    if (b.y >= h - 20) {
+      createExplosion(b.x, h - 20);
+      bombs.splice(i, 1);
+
+      // Shockwave ring
+      particles.push({
+        x: b.x,
+        y: h - 20,
+        vx: 0,
+        vy: 0,
+        life: 1,
+        size: Math.min(w, h)/15,
+        ring: true
+      });
+    }
+  }
+
+  // ---- Particles ----
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.2; // gravity
+    p.life *= 0.94;
+
+    ctx.beginPath();
+    ctx.shadowColor = "#00aaff";
+    ctx.shadowBlur = 25;
+
+    if (p.ring) {
+      ctx.strokeStyle = `rgba(0,170,255,${p.life})`;
+      ctx.lineWidth = 4;
+      ctx.arc(
+        p.x,
+        p.y,
+        p.size * (1.3 - p.life),
+        0,
+        Math.PI * 2
+      );
+      ctx.stroke();
+    } else {
+      ctx.fillStyle = `rgba(0,170,255,${p.life})`;
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (p.life < 0.03) {
+      particles.splice(i, 1);
+    }
+  }
+}
+
+animate();
+</script>
+
+
+
+
+
+
+
+
+  
+<div style="margin-left: 20px; margin-top: 20px;">
+
+              <li class="social-item" style="border-radius: 5px; display: flex; justify-content:baseline;"><a href="index.html" target="_self" class="social-link" ><button class="follow-btn but" style=" border: 3px solid rgb(0, 0, 0); background-color: rgb(247, 251, 255); color: black; font-weight: bolder;"> ← B A C K</button>
+            </a>
+            </li>
+
+</div>
+
+
+
+
+<div class="container">
+  <main style="margin-top: 20px;">
+    <div class="lol">
+
+      <!-- STYLE scoped to this card -->
+      <style>
+        .lol {
+          
+          margin: 0 auto;
+          background: linear-gradient(135deg, #0f1220 0%, #1a1f35 60%, #222a48 100%);
+          color: #e8ecf8;
+          border-radius: 18px;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+          overflow: hidden;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .build-header {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 28px 28px 18px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          background: radial-gradient(1200px 600px at 10% 0%, rgba(96, 140, 255, 0.18) 0%, rgba(96, 140, 255, 0) 60%);
+        }
+        .badge {
+          background: rgba(96, 140, 255, 0.18);
+          border: 1px solid rgba(96, 140, 255, 0.35);
+          color: #cfe1ff;
+          padding: 6px 10px;
+          border-radius: 999px;
+          font-size: 12px;
+          letter-spacing: 0.4px;
+        }
+        .title {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.3px;
+        }
+        .subtitle {
+          font-size: 13px;
+          color: #b8c3e6;
+        }
+
+        .build-meta {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 12px;
+          padding: 18px 28px 10px;
+        }
+        .meta-item {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 12px;
+          padding: 10px 12px;
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+        }
+        .meta-label {
+          font-size: 11px;
+          color: #9fb1dd;
+          letter-spacing: 0.35px;
+          text-transform: uppercase;
+        }
+        .meta-value {
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px;
+          padding: 22px 28px 28px;
+        }
+        @media (max-width: 820px) {
+          .grid { grid-template-columns: 1fr; }
+          .build-meta { grid-template-columns: repeat(2, 1fr); }
+        }
+        .section {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 14px;
+          overflow: hidden;
+        }
+        .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 14px 16px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent);
+        }
+        .section-title {
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.4px;
+          color: #d7e3ff;
+          text-transform: uppercase;
+        }
+        .section-body {
+          padding: 14px 16px 16px;
+        }
+        .spec {
+          display: grid;
+          grid-template-columns: 120px 1fr;
+          gap: 12px;
+          padding: 8px 0;
+          border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+        }
+        .spec:last-child {
+          border-bottom: none;
+        }
+        .spec-label {
+          color: #9fb1dd;
+          font-size: 12px;
+          letter-spacing: 0.3px;
+          text-transform: uppercase;
+        }
+        .spec-value {
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: rgba(50, 200, 120, 0.15);
+          border: 1px solid rgba(50, 200, 120, 0.35);
+          color: #baf3d1;
+          font-size: 12px;
+          margin-left: 8px;
+        }
+
+        .monitor-block {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        @media (max-width: 560px) {
+          .monitor-block { grid-template-columns: 1fr; }
+        }
+
+        .footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 18px 28px 26px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          background: radial-gradient(1000px 500px at 90% 100%, rgba(255, 190, 120, 0.15) 0%, rgba(255, 190, 120, 0) 60%);
+        }
+        .btn {
+          padding: 10px 14px;
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          background: rgba(255, 255, 255, 0.06);
+          color: #e8ecf8;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.18s ease;
+        }
+        .btn:hover {
+          transform: translateY(-1px);
+          background: rgba(255, 255, 255, 0.12);
+        }
+        .tag {
+          font-size: 11px;
+          color: #9fb1dd;
+          letter-spacing: 0.35px;
+          text-transform: uppercase;
+          padding: 6px 10px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .tags {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+      </style>
+
+      <!-- HEADER -->
+      <div class="build-header">
+        
+        
+        <div>
+          <div class="title">MY PERSONAL DETAILS</div>
+          
+        </div>
+      </div>
+
+     
+       <div class="section" style="margin: 30px;">
+          <div class="section-header">
+            <div class="section-title">Info</div>
+            
+          </div>
+          <div class="section-body">
+            <div class="spec">
+              <div class="spec-label">Phone</div>
+              <div class="spec-value">8801971717199<span class="pill">main</span></div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Phone</div>
+              <div class="spec-value">8801624855565</div>
+            </div>
+           
+            <div class="spec">
+              <div class="spec-label">Whats app</div>
+              <div class="spec-value">8801943831621</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Email</div>
+              <div class="spec-value">aymanghost24@gmail.com<span class="pill">main</span></div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Email</div>
+              <div class="spec-value">aymanghost26@gmail.com</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Street address</div>
+              <div class="spec-value">Ruby Villa, Sripur, Kashimpur Road, Sripur, Savar EPZ, Savar, Dhaka, Bangladesh</div>
+            </div>
+          </div>
+        </div>
+   
+      
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="tags">
+          <span class="tag">Important details</span>
+          
+        </div>
+        
+      </div>
+
+    </div>
+  </main>
+</div>
+
+
+
+
+ <div class="container">
+  <main style="margin-top: 20px;">
+    <div class="lol">
+
+      <!-- STYLE scoped to this card -->
+      <style>
+        .lol {
+          
+          margin: 0 auto;
+          background: linear-gradient(135deg, #0f1220 0%, #1a1f35 60%, #222a48 100%);
+          color: #e8ecf8;
+          border-radius: 18px;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+          overflow: hidden;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .build-header {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 28px 28px 18px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          background: radial-gradient(1200px 600px at 10% 0%, rgba(96, 140, 255, 0.18) 0%, rgba(96, 140, 255, 0) 60%);
+        }
+        .badge {
+          background: rgba(96, 140, 255, 0.18);
+          border: 1px solid rgba(96, 140, 255, 0.35);
+          color: #cfe1ff;
+          padding: 6px 10px;
+          border-radius: 999px;
+          font-size: 12px;
+          letter-spacing: 0.4px;
+        }
+        .title {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.3px;
+        }
+        .subtitle {
+          font-size: 13px;
+          color: #b8c3e6;
+        }
+
+        .build-meta {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 12px;
+          padding: 18px 28px 10px;
+        }
+        .meta-item {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 12px;
+          padding: 10px 12px;
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+        }
+        .meta-label {
+          font-size: 11px;
+          color: #9fb1dd;
+          letter-spacing: 0.35px;
+          text-transform: uppercase;
+        }
+        .meta-value {
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px;
+          padding: 22px 28px 28px;
+        }
+        @media (max-width: 820px) {
+          .grid { grid-template-columns: 1fr; }
+          .build-meta { grid-template-columns: repeat(2, 1fr); }
+        }
+        .section {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 14px;
+          overflow: hidden;
+        }
+        .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 14px 16px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent);
+        }
+        .section-title {
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.4px;
+          color: #d7e3ff;
+          text-transform: uppercase;
+        }
+        .section-body {
+          padding: 14px 16px 16px;
+        }
+        .spec {
+          display: grid;
+          grid-template-columns: 120px 1fr;
+          gap: 12px;
+          padding: 8px 0;
+          border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+        }
+        .spec:last-child {
+          border-bottom: none;
+        }
+        .spec-label {
+          color: #9fb1dd;
+          font-size: 12px;
+          letter-spacing: 0.3px;
+          text-transform: uppercase;
+        }
+        .spec-value {
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: rgba(50, 200, 120, 0.15);
+          border: 1px solid rgba(50, 200, 120, 0.35);
+          color: #baf3d1;
+          font-size: 12px;
+          margin-left: 8px;
+        }
+
+        .monitor-block {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        @media (max-width: 560px) {
+          .monitor-block { grid-template-columns: 1fr; }
+        }
+
+        .footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 18px 28px 26px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          background: radial-gradient(1000px 500px at 90% 100%, rgba(255, 190, 120, 0.15) 0%, rgba(255, 190, 120, 0) 60%);
+        }
+        .btn {
+          padding: 10px 14px;
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          background: rgba(255, 255, 255, 0.06);
+          color: #e8ecf8;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.18s ease;
+        }
+        .btn:hover {
+          transform: translateY(-1px);
+          background: rgba(255, 255, 255, 0.12);
+        }
+        .tag {
+          font-size: 11px;
+          color: #9fb1dd;
+          letter-spacing: 0.35px;
+          text-transform: uppercase;
+          padding: 6px 10px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .tags {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+      </style>
+
+      <!-- HEADER -->
+      <div class="build-header">
+        
+        
+        <div>
+          <div class="title">MY PC BUILD</div>
+          <div class="subtitle">Balanced for gaming, content creation, programming and daily efficiency.</div>
+        </div>
+      </div>
+
+      <!-- QUICK META -->
+      <div class="build-meta">
+        <div class="meta-item">
+          <div class="meta-label">Budget</div>
+          <div class="meta-value">৳ 315,000 / $ 2,572.83</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Target</div>
+          <div class="meta-value">1440p / 144 Hz gaming</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Use case</div>
+          <div class="meta-value">Gaming + Editing + Browsing</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">Theme</div>
+          <div class="meta-value">Midnight blue with subtle RGB</div>
+        </div>
+      </div>
+
+      <!-- GRID -->
+      <div class="grid">
+        <!-- CORE COMPONENTS -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Core components</div>
+            <div class="tags">
+              <span class="tag">AMD/NVIDIA mix</span>
+              <span class="tag">DDR5</span>
+              <span class="tag">PCIe 4.0</span>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="spec">
+              <div class="spec-label">CPU</div>
+              <div class="spec-value">AMD Ryzen 7 7700x — 6C/12T, up to 5.4 GHz</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">GPU</div>
+              <div class="spec-value">GIGABYTE GeForce RTX 4060 Ti — 16 GB GDDR6X</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Motherboard</div>
+              <div class="spec-value">MSI B650 Tomahawk WiFi — ATX, PCIe 4.0</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">RAM</div>
+              <div class="spec-value">32 GB (2×16) DDR5-6000 CL36 — EXPO</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Storage</div>
+              <div class="spec-value">1 TB NVMe SSD (PCIe 4.0, 7400/6500 MB/s) <span class="pill">OS + Apps</span></div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Secondary</div>
+              <div class="spec-value">4 TB SATA SSD — media & projects</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">PSU</div>
+              <div class="spec-value">650 W 80+ Gold — fully modular</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Cooling</div>
+              <div class="spec-value">Noctua NH-D15 G2 — quiet profile</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Case</div>
+              <div class="spec-value">CORSAIR 7000D AIRFLOW Full-Tower ATX — airflow front, tempered glass</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">OS</div>
+              <div class="spec-value">Windows 11 Pro — digital license</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DISPLAY & PERIPHERALS -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Monitor and peripherals</div>
+            <div class="tags">
+              <span class="tag">Creator + Gamer</span>
+              <span class="tag">Low-latency</span>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="monitor-block">
+              <div class="spec">
+                <div class="spec-label">Primary monitor</div>
+                <div class="spec-value">27" 1440p IPS — 165 Hz, 1 ms, 99% sRGB</div>
+              </div>
+              <div class="spec">
+                <div class="spec-label">Secondary monitor</div>
+                <div class="spec-value"><span class="pill">Pending</span></div>
+              </div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Keyboard</div>
+              <div class="spec-value">TKL mechanical — hot-swap, linear switches</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Mouse</div>
+              <div class="spec-value">Wireless 2.4 GHz — 26k DPI, 1000 Hz polling</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Audio</div>
+              <div class="spec-value">USB DAC + open-back headphones</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Webcam</div>
+              <div class="spec-value"><span class="pill">Pending</span></div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Mic</div>
+              <div class="spec-value"><span class="pill">Pending</span></div>
+            </div>
+          </div>
+        </div>
+
+       
+
+        <!-- PERFORMANCE TARGETS -->
+        <div class="section">
+          <div class="section-header">
+            <div class="section-title">Performance targets</div>
+            <div class="tags">
+              <span class="tag">1440p</span>
+              <span class="tag">Creator-ready</span>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="spec">
+              <div class="spec-label">Gaming</div>
+              <div class="spec-value">High/Ultra at 1440p — 120–165 FPS (typical titles)</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Editing</div>
+              <div class="spec-value">4K timeline smooth with GPU acceleration</div>
+            </div>
+            <div class="spec">
+              <div class="spec-label">Thermals</div>
+              <div class="spec-value">Quiet under load — optimized fan curve</div>
+            </div>
+          </div>
+        </div>
+
+
+  <!-- pic TARGETS -->
+
+           <div class="section">
+          <div class="section-header">
+            <div class="section-title">PICTURES</div>
+            <div class="tags">
+              <span class="tag">4k</span>
+              <span class="tag">BUILD PIC</span>
+            </div>
+          </div>
+          <div class="section-body">
+            <div class="gallery">
+  <img src="pc/1.jpg" alt="PC Build 1" onclick="openLightbox(0)">
+  <img src="pc/2.jpg" alt="PC Build 2" onclick="openLightbox(1)">
+  <img src="pc/3.jpg" alt="PC Build 3" onclick="openLightbox(2)">
+  <img src="pc/4.jpg" alt="PC Build 3" onclick="openLightbox(3)">
+  
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" class="lightbox">
+  <span class="close" onclick="closeLightbox()">&times;</span>
+  <img id="lightbox-img" src="" alt="Expanded view">
+  <a class="prev" onclick="changeSlide(-1)">&#10094;</a>
+  <a class="next" onclick="changeSlide(1)">&#10095;</a>
+</div>
+
+<style>
+  .gallery {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: flex-start; /* align neatly in rows */
+  }
+  .gallery img {
+    width: 120px;   /* small fixed width */
+    height: 80px;   /* small fixed height */
+    object-fit: cover; /* crop nicely without distortion */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  .gallery img:hover {
+    transform: scale(1.05);
+  }
+
+  .lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    padding-top: 60px;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.9);
+    text-align: center;
+  }
+  .lightbox img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 10px;
+  }
+  .close {
+    position: absolute;
+    top: 20px; right: 35px;
+    color: #fff;
+    font-size: 40px;
+    cursor: pointer;
+  }
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    font-size: 40px;
+    color: #fff;
+    padding: 16px;
+    user-select: none;
+    transition: 0.3s;
+  }
+  .prev { left: 0; }
+  .next { right: 0; }
+  .prev:hover, .next:hover { color: #ddd; }
+</style>
+<script>
+  const images = [
+    "pc/1.jpg",
+    "pc/2.jpg",
+    "pc/3.jpg",
+    "pc/4.jpg"
+    
+  ];
+  let currentIndex = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    document.getElementById("lightbox").style.display = "block";
+    document.getElementById("lightbox-img").src = images[currentIndex];
+  }
+
+  function closeLightbox() {
+    document.getElementById("lightbox").style.display = "none";
+  }
+
+  function changeSlide(n) {
+    currentIndex = (currentIndex + n + images.length) % images.length;
+    document.getElementById("lightbox-img").src = images[currentIndex];
+  }
+</script>
+          </div>
+        </div>
+      </div>
+   
+      
+
+      <!-- FOOTER -->
+      <div class="footer">
+        <div class="tags">
+          <span class="tag">Best build</span>
+          <span class="tag">Gamming</span>
+          <span class="tag">Supper powerful PC</span>
+        </div>
+        
+      </div>
+
+    </div>
+  </main>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+  <main style="margin-top: 20px;">
+    <div class="lo">
+
+      <!-- STYLE scoped to this card -->
+      <style>
+        .lo {
+          
+          margin: 0 auto;
+          background: linear-gradient(135deg, #0f1220 0%, #1a1f35 60%, #222a48 100%);
+          color: #e8ecf8;
+          border-radius: 18px;
+          box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+          overflow: hidden;
+          border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .build-header {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          padding: 28px 28px 18px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          background: radial-gradient(1200px 600px at 10% 0%, rgba(96, 140, 255, 0.18) 0%, rgba(96, 140, 255, 0) 60%);
+        }
+        .badge {
+          background: rgba(96, 140, 255, 0.18);
+          border: 1px solid rgba(96, 140, 255, 0.35);
+          color: #cfe1ff;
+          padding: 6px 10px;
+          border-radius: 999px;
+          font-size: 12px;
+          letter-spacing: 0.4px;
+        }
+        .title {
+          font-size: 24px;
+          font-weight: 700;
+          letter-spacing: 0.3px;
+        }
+        .subtitle {
+          font-size: 13px;
+          color: #b8c3e6;
+        }
+
+        .build-meta {
+          display: grid;
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 12px;
+          padding: 18px 28px 10px;
+        }
+        .meta-item {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 12px;
+          padding: 10px 12px;
+          display: flex;
+          flex-direction: column;
+          gap: 3px;
+        }
+        .meta-label {
+          font-size: 11px;
+          color: #9fb1dd;
+          letter-spacing: 0.35px;
+          text-transform: uppercase;
+        }
+        .meta-value {
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 16px;
+          padding: 22px 28px 28px;
+        }
+        @media (max-width: 820px) {
+          .grid { grid-template-columns: 1fr; }
+          .build-meta { grid-template-columns: repeat(2, 1fr); }
+        }
+        .section {
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          border-radius: 14px;
+          overflow: hidden;
+        }
+        .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 14px 16px;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent);
+        }
+        .section-title {
+          font-size: 13px;
+          font-weight: 700;
+          letter-spacing: 0.4px;
+          color: #d7e3ff;
+          text-transform: uppercase;
+        }
+        .section-body {
+          padding: 14px 16px 16px;
+        }
+        .spec {
+          display: grid;
+          grid-template-columns: 120px 1fr;
+          gap: 12px;
+          padding: 8px 0;
+          border-bottom: 1px dashed rgba(255, 255, 255, 0.12);
+        }
+        .spec:last-child {
+          border-bottom: none;
+        }
+        .spec-label {
+          color: #9fb1dd;
+          font-size: 12px;
+          letter-spacing: 0.3px;
+          text-transform: uppercase;
+        }
+        .spec-value {
+          font-size: 14px;
+          font-weight: 600;
+        }
+
+        .pill {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 8px 12px;
+          border-radius: 999px;
+          background: rgba(50, 200, 120, 0.15);
+          border: 1px solid rgba(50, 200, 120, 0.35);
+          color: #baf3d1;
+          font-size: 12px;
+          margin-left: 8px;
+        }
+
+        .monitor-block {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        @media (max-width: 560px) {
+          .monitor-block { grid-template-columns: 1fr; }
+        }
+
+        .footer {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+          padding: 18px 28px 26px;
+          border-top: 1px solid rgba(255, 255, 255, 0.08);
+          background: radial-gradient(1000px 500px at 90% 100%, rgba(255, 190, 120, 0.15) 0%, rgba(255, 190, 120, 0) 60%);
+        }
+        .btn {
+          padding: 10px 14px;
+          border-radius: 10px;
+          border: 1px solid rgba(255, 255, 255, 0.18);
+          background: rgba(255, 255, 255, 0.06);
+          color: #e8ecf8;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.18s ease;
+        }
+        .btn:hover {
+          transform: translateY(-1px);
+          background: rgba(255, 255, 255, 0.12);
+        }
+        .tag {
+          font-size: 11px;
+          color: #9fb1dd;
+          letter-spacing: 0.35px;
+          text-transform: uppercase;
+          padding: 6px 10px;
+          border-radius: 999px;
+          background: rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .tags {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+      </style>
+
+      <!-- HEADER -->
+      
+  <!-- HEADER -->
+  <div class="build-header">
+    <div>
+      <div class="title">MY SKILLS</div>
+      <div class="subtitle">All my online & creative skill sets.</div>
+    </div>
+  </div>
+
+  <!-- GRID -->
+  <div class="grid">
+
+    <!-- WEB DEVELOPMENT -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">WEB DEVELOPMENT</div>
+        <div class="tags">
+          <span class="tag">Frontend</span>
+          <span class="tag">Responsive</span>
+          <span class="tag">UI/UX</span>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="spec">
+          <div class="spec-label">HTML</div>
+          <div class="spec-value">Semantic layouts & SEO structure</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">CSS</div>
+          <div class="spec-value">Flexbox, Grid, Animations</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">JavaScript</div>
+          <div class="spec-value">DOM logic & interactivity</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Frameworks</div>
+          <div class="spec-value">React, Next.js, Bootstrap, Tailwind</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Backend</div>
+          <div class="spec-value">Node.js basics</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Database</div>
+          <div class="spec-value">Firebase / MongoDB</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Deployment</div>
+          <div class="spec-value">Vercel & Netlify hosting</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PYTHON -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">PYTHON</div>
+        <div class="tags">
+          <span class="tag">Automation</span>
+          <span class="tag">AI Tools</span>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="monitor-block">
+          <div class="spec">
+            <div class="spec-label">Core</div>
+            <div class="spec-value">OOP & scripting</div>
+          </div>
+          <div class="spec">
+            <div class="spec-label">Apps</div>
+            <div class="spec-value">Desktop software</div>
+          </div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Automation</div>
+          <div class="spec-value">Task automation systems</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">AI Assistants</div>
+          <div class="spec-value">Voice & chat assistants</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Executables</div>
+          <div class="spec-value">.exe app builds</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">APIs</div>
+          <div class="spec-value">Service integrations</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRAPHICS DESIGN -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">GRAPHICS DESIGN</div>
+        <div class="tags">
+          <span class="tag">Branding</span>
+          <span class="tag">Creative</span>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="spec">
+          <div class="spec-label">Posters</div>
+          <div class="spec-value">Gaming & social media posters</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Logos</div>
+          <div class="spec-value">Brand identity design</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">UI Design</div>
+          <div class="spec-value">App & website interfaces</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Editing</div>
+          <div class="spec-value">Photo manipulation</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OTHERS -->
+    <div class="section">
+      <div class="section-header">
+        <div class="section-title">OTHERS</div>
+        <div class="tags">
+          <span class="tag">Creative Tech</span>
+          <span class="tag">Media</span>
+        </div>
+      </div>
+      <div class="section-body">
+        <div class="spec">
+          <div class="spec-label">Game Dev</div>
+          <div class="spec-value">Unreal Engine basics</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Content</div>
+          <div class="spec-value">Social media creation</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Writing</div>
+          <div class="spec-value">Story & world building</div>
+        </div>
+        <div class="spec">
+          <div class="spec-label">Projects</div>
+          <div class="spec-value">AI & experimental builds</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="tags">
+      <span class="tag">Creative Developer</span>
+      <span class="tag">Designer</span>
+      <span class="tag">Problem Solver</span>
+    </div>
+  </div>
+
+</div>
+
+
+
+  </main>
+</div>
+
+
+
+      
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="container">
+    <main style="margin-top: 80px;">
+  <div class="tol">
+    <style>
+      .tol {
+        background: linear-gradient(135deg, #0f1220 0%, #1a1f35 60%, #222a48 100%);
+        color: #e8ecf8;
+        border-radius: 18px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 28px;
+        margin-bottom: 40px;
+      }
+      .board-section {
+        margin-bottom: 32px;
+      }
+      .board-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+        cursor: pointer;
+      }
+      .board-title {
+        font-size: 20px;
+        font-weight: 700;
+        color: #cfe1ff;
+        letter-spacing: 0.5px;
+      }
+      .add-btn {
+        font-size: 13px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: rgba(96, 140, 255, 0.18);
+        border: 1px solid rgba(96, 140, 255, 0.35);
+        color: #cfe1ff;
+        cursor: pointer;
+      }
+      .game-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 16px;
+        transition: max-height 0.3s ease;
+        overflow: hidden;
+      }
+      .game-card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        transition: transform 0.2s ease;
+      }
+      .game-card:hover {
+        transform: scale(1.03);
+      }
+      .game-img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+      .game-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: #e8ecf8;
+      }
+      .tag-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tag {
+        font-size: 11px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: rgba(96, 140, 255, 0.18);
+        border: 1px solid rgba(96, 140, 255, 0.35);
+        color: #cfe1ff;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+      .tag:hover {
+        background: rgba(96, 140, 255, 0.35);
+      }
+      .collapsed {
+        max-height: 0;
+        padding: 0;
+        margin: 0;
+      }
+      .container {
+        max-width: 100%;
+      padding: 0 24px;
+        }
+
+  .tol {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+  .game-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+}
+    </style>
+
+    <script>
+      function toggleSection(id) {
+        const grid = document.getElementById(id);
+        grid.classList.toggle('collapsed');
+      }
+      function highlightTag(tag) {
+        tag.classList.toggle('active-tag');
+      }
+    </script>
+<div class="build-header" style="border-radius: 10px 0px 0px 10px;">
+        
+        
+        <div >
+          <div class="title">MY GAME COLLECTION</div>
+          <div class="subtitle">ALL THE GAME I LIKE, I PLAYED OR I WANT TO PLAY</div>
+        </div>
+      </div>
+      <br><br>
+    <!-- Games in Rotation -->
+    <div class="board-section">
+      <div class="board-header">
+        <div class="board-title">FAVOURITE GAMES</div>
+      </div>
+      <div class="game-grid" id="rotation">
+        <div class="game-card">
+          <img src="https://cdkp.b-cdn.net/images/games/5655527/grand-theft-auto-vice-city-the-definitive-edition-desktop-logo-all.webp" class="game-img" alt="GTA VICE CITY">
+          <div class="game-name">GTA VICE CITY</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Better than you</span>
+            <span class="tag" onclick="highlightTag(this)">Love it</span>
+            <span class="tag" onclick="highlightTag(this)">Open to play</span>
+            <span class="tag" onclick="highlightTag(this)">DISK</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://www.venturegames.com.pk/cdn/shop/files/GrandTheftAutoV_GTA5.jpg?v=1706608866&width=1946" class="game-img" alt="GRAND THEF AUTO V">
+          <div class="game-name">GRAND THEF AUTO V</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">GOOD</span>
+            <span class="tag" onclick="highlightTag(this)">Like it</span>
+            <span class="tag" onclick="highlightTag(this)">Open to play</span>
+            <span class="tag" onclick="highlightTag(this)">XBOX</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://tse2.mm.bing.net/th/id/OIP.9CywD237m9ic8IFNE4LzmQHaJ4?w=540&h=720&rs=1&pid=ImgDetMain&o=7&rm=3" class="game-img" alt="GTA SAN ANDREAZ">
+          <div class="game-name">GTA SAN ANDREAZ</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Better than you</span>
+            <span class="tag" onclick="highlightTag(this)">Love it</span>
+            <span class="tag" onclick="highlightTag(this)">Open to play</span>
+            <span class="tag" onclick="highlightTag(this)">Disk</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://th.bing.com/th/id/R.2715284e36c5b2305a62057b1ba38061?rik=kMyzVON0KgnGEA&pid=ImgRaw&r=0" class="game-img" alt="Red Dead Redemption 2">
+          <div class="game-name">Red Dead Redemption 2</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Intermediate</span>
+            <span class="tag" onclick="highlightTag(this)">Love it</span>
+            <span class="tag" onclick="highlightTag(this)">Looking for tips</span>
+            <span class="tag" onclick="highlightTag(this)">Epic</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://image.api.playstation.com/vulcan/img/cfn/11307x4B5WLoVoIUtdewG4uJ_YuDRTwBxQy0qP8ylgazLLc01PBxbsFG1pGOWmqhZsxnNkrU3GXbdXIowBAstzlrhtQ4LCI4.png" class="game-img" alt="MINECRAFT">
+          <div class="game-name">MINECRAFT</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">PRO</span>
+            <span class="tag" onclick="highlightTag(this)">Love it</span>
+            <span class="tag" onclick="highlightTag(this)">Looking for tips</span>
+            <span class="tag" onclick="highlightTag(this)">Xbox</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://play-lh.googleusercontent.com/QkLiwyH08lbNjTCxeVjtsBxPokeMv1_9P_oyGBD5mlWRzP7z0bOggf1TTB47raNqzANd" class="game-img" alt="Samoroast serise">
+          <div class="game-name">Samoroast</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Better than all</span>
+            <span class="tag" onclick="highlightTag(this)">Love it</span>
+            <span class="tag" onclick="highlightTag(this)">Looking for tips</span>
+            <span class="tag" onclick="highlightTag(this)">Epic</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://th.bing.com/th/id/R.ba46b1aaab884ca0055fc557c2ccaa40?rik=0OvQ%2fxo8eekl6A&riu=http%3a%2f%2fcdn.collider.com%2fwp-content%2fuploads%2f2015%2f03%2fbatman-arkham-knight-poster.jpg&ehk=n0Tv5nNnaW4WLmccrAC6u0SBwQ8jqQ0Mvi5mpXzewHg%3d&risl=&pid=ImgRaw&r=0" class="game-img" alt="BATMAN serise">
+          <div class="game-name">BATMAN</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">PRO</span>
+            <span class="tag" onclick="highlightTag(this)">Love it</span>
+            <span class="tag" onclick="highlightTag(this)">Looking for tips</span>
+            <span class="tag" onclick="highlightTag(this)">Xbox</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2025/01/mixcollage-22-jan-2025-06-52-am-8674.jpg" class="game-img" alt="zero hour">
+          <div class="game-name">ZERO HOUR</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Intermediate</span>
+            <span class="tag" onclick="highlightTag(this)">Love it</span>
+            <span class="tag" onclick="highlightTag(this)">Looking for tips</span>
+            <span class="tag" onclick="highlightTag(this)">Epic</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://static1.srcdn.com/wordpress/wp-content/uploads/2023/05/among-us-poster.jpg" class="game-img" alt="AMONG US">
+          <div class="game-name">AMONG US</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Better than you</span>
+            <span class="tag" onclick="highlightTag(this)">Love it</span>
+            <span class="tag" onclick="highlightTag(this)">Looking for tips</span>
+            <span class="tag" onclick="highlightTag(this)">Xbox</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://tse4.mm.bing.net/th/id/OIP.u9rj_AGMHvrOwneXDuj2BwHaFo?rs=1&pid=ImgDetMain&o=7&rm=3" class="game-img" alt="IGI">
+          <div class="game-name">PROJECT IGI</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Pro</span>
+            <span class="tag" onclick="highlightTag(this)">Love it</span>
+            <span class="tag" onclick="highlightTag(this)">Looking for tips</span>
+            <span class="tag" onclick="highlightTag(this)">Disk</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+    <!-- Want to Play -->
+    <div class="board-section">
+      <div class="board-header">
+        <div class="board-title">OTHER PLAYED OR COMPLETED GAMES</div>
+        
+      </div>
+      <div class="game-grid" id="want">
+        <div class="game-card">
+          <img src="https://assets-prd.ignimgs.com/2021/08/24/forza-horizon-5-button-fin-1629830068379.jpg" class="game-img" alt="FROZA HORYZON 5">
+          <div class="game-name">FROZA HORIZON 5</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Rich</span>
+            <span class="tag" onclick="highlightTag(this)">Owned many cars</span>
+            <span class="tag" onclick="highlightTag(this)">Xbox</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2025/06/silent-hill-f-tag-page-cover-art.jpg" class="game-img" alt="Silent Hill">
+          <div class="game-name">Silent Hill F</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Half completed</span>
+            <span class="tag" onclick="highlightTag(this)">Epic</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://th.bing.com/th/id/R.352954f605c61130be5091a174c44953?rik=0m1nAdiz%2bMiqdg&pid=ImgRaw&r=0" class="game-img" alt="Cyberpunk 2077">
+          <div class="game-name">Cyberpunk 2077</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Half completed</span>
+            <span class="tag" onclick="highlightTag(this)">Epic</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://tse3.mm.bing.net/th/id/OIP.GVHK-X12WRBq09x8T73JRwHaHa?w=2048&h=2048&rs=1&pid=ImgDetMain&o=7&rm=3" class="game-img" alt="INDIANA JOHNS">
+          <div class="game-name">INDIANA JOHNS</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Completed</span>
+            <span class="tag" onclick="highlightTag(this)">Xbox</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://image.api.playstation.com/vulcan/ap/rnd/202306/1214/9ec3be8acd540e2f84e7362cb492e8d53b93e8a7bea4cd5f.png" class="game-img" alt="Pasmophobia">
+          <div class="game-name">Pasmophobia</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Pro</span>
+            <span class="tag" onclick="highlightTag(this)">Steam</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://tse3.mm.bing.net/th/id/OIP.H2kd4l9jSZrvuly2FO1c5wAAAA?rs=1&pid=ImgDetMain&o=7&rm=3" class="game-img" alt="TAILS BEYOND THE TOMB">
+          <div class="game-name">TAILS BEYOND THE TOMB</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Steam</span>
+            <span class="tag" onclick="highlightTag(this)">All episodes</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2024/07/deltaforcehawkopstagimage.jpg" class="game-img" alt="Delta force">
+          <div class="game-name">Delta force</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">pro</span>
+            <span class="tag" onclick="highlightTag(this)">Steam</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://howlongtobeat.com/games/95696_Fears_to_Fathom_-_Home_Alone.jpg" class="game-img" alt="FEARS OF FATHOM">
+          <div class="game-name">FEARS OF FATHOM</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">All episodes</span>
+            <span class="tag" onclick="highlightTag(this)">Steam</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://www.highgroundgaming.com/wp-content/uploads/2023/10/Valorant-Box-Art.webp" class="game-img" alt="Valorant">
+          <div class="game-name">Valorant</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Pro</span>
+            <span class="tag" onclick="highlightTag(this)">Epic</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://th.bing.com/th/id/R.d1da13ddf7ea67a52b5dc2c395882153?rik=DJKv8qItYBEiag&pid=ImgRaw&r=0" class="game-img" alt="Borderlands 2 Deluxe Edition">
+          <div class="game-name">Borderlands 2</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Steam</span>
+          </div>
+        </div>
+        
+
+
+
+
+        
+      </div>
+      
+      
+    </div>
+
+
+
+    <!-- Games I Like -->
+    <div class="board-section">
+      <div class="board-header">
+        <div class="board-title">PENDING GAMES I WILL PLAY</div>
+        
+      </div>
+      <div class="game-grid" id="like">
+        <div class="game-card">
+          <img src="https://th.bing.com/th/id/R.264317a34cd44c83735354954ce72559?rik=1R07K%2fGnhN2ogw&pid=ImgRaw&r=0" class="game-img" alt="hitman">
+          <div class="game-name">Hitman 3</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Owned</span>
+            <span class="tag" onclick="highlightTag(this)">Xbox</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://tse3.mm.bing.net/th/id/OIP.BBNMAE5s917V6_tuq2qMVQHaJY?rs=1&pid=ImgDetMain&o=7&rm=3" class="game-img" alt="ass">
+          <div class="game-name">Assasin's creed origins</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Owned</span>
+            <span class="tag" onclick="highlightTag(this)">Xbox</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://www.gamespot.com/a/uploads/scale_medium/1197/11970954/2396855-ac4blackflag.jpeg" class="game-img" alt="ass">
+          <div class="game-name">Assasin's creed black flag</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Owned</span>
+            <span class="tag" onclick="highlightTag(this)">Xbox</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://imgs.callofduty.com/content/dam/atvi/callofduty/cod-touchui/mw3/meta/reveal/jpt-reveal-meta.jpg" class="game-img" alt="COD">
+
+          <div class="game-name">CALL OF DUTY MW3</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Owned</span>
+            <span class="tag" onclick="highlightTag(this)">Xbox</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://image.api.playstation.com/vulcan/ap/rnd/202008/1020/T45iRN1bhiWcJUzST6UFGBvO.png" class="game-img" alt="Limbo">
+          <div class="game-name">Spiderman Miles Morals</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Owned</span>
+            <span class="tag" onclick="highlightTag(this)">Epic</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="board-section">
+      <div class="board-header">
+        <div class="board-title">Wishlist</div>
+        
+      </div>
+      <div class="game-grid" id="like">
+        <div class="game-card">
+          <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/4016910/906263da60f65b12381ab1a6728067c07761c025/header.jpg?t=1760892646" class="game-img" alt="O&a">
+          <div class="game-name">OVER AND OUT</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Steam</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://tse1.mm.bing.net/th/id/OIP.9b0f90Ch5rg6voqO3ImGBgHaJ4?rs=1&pid=ImgDetMain&o=7&rm=3" class="game-img" alt="mafia">
+          <div class="game-name">MAFIA TRIOLOGY</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Xbox</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/09/ghost-of-tsushima-director-s-cut.jpg" class="game-img" alt="got">
+          <div class="game-name">GHOST OF Tsushima</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Steam</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://store-images.s-microsoft.com/image/apps.39575.65858607118306853.39ed2a08-df0d-4ae1-aee0-c66ffb783a34.4b0c1586-4376-4ebb-a653-53a3fccec06c" class="game-img" alt="the witcher">
+          <div class="game-name">THE WITCHER</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Steam</span>
+          </div>
+        </div>
+        <div class="game-card">
+          <img src="https://th.bing.com/th/id/R.4f00d6a8c1e97f24453567c2525591a4?rik=L3Hbd4Q8TF8njA&pid=ImgRaw&r=0" class="game-img" alt="silent">
+          <div class="game-name">Silnt hill 2</div>
+          <div class="tag-list">
+            <span class="tag" onclick="highlightTag(this)">Epic</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+  </div>
+</main>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+   <script>
+    document.getElementById('overlay').addEventListener('click', function () {
+      this.classList.add('fade-out');
+    });
+  </script>
+
+  <script src="autoplay.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>
+
+
+
+

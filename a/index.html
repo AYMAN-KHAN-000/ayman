@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>@AYMAN KHAN</title>
+  <link rel="stylesheet" href="styles.css">
+  
+  <link rel="shortcut icon" href="not allowed.webp" type="image/x-icon">
+  <style>
+  
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      cursor: pointer;
+      z-index: 9999;
+      transition: opacity 2s ease;
+    }
+
+    #overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #content {
+      height: 100%;
+      background: url('https://picsum.photos/seed/ayman/1600/900') center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      color: white;
+    }
+  </style>
+
+
+</head>
+<body>
+
+
+
+<style>
+  html, body {
+    margin: 0;
+    height: 100%;
+  
+    overflow: hidden;
+  }
+
+  canvas {
+  position: absolute; /* or relative */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+
+
+    canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999; /* on top of everything */
+}
+body {
+  overflow-x: hidden; /* optional, prevent horizontal scroll issues */
+  overflow-y: auto;   /* make sure vertical scroll works */
+}
+
+  
+</style>
+<canvas id="fx"></canvas>
+
+<script>
+const canvas = document.getElementById("fx");
+const ctx = canvas.getContext("2d");
+
+let w, h;
+function resize(){
+  w = canvas.width = window.innerWidth;
+  h = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener("resize", resize);
+
+
+// ---------------- CLICK COUNTER ----------------
+let clickCount = 0;
+
+document.addEventListener("click", e => {
+  clickCount++;
+
+  if (clickCount >= 2) {  // Trigger after 2 clicks now
+    dropBomb(e.clientX);
+    clickCount = 0;
+  }
+});
+
+
+// ---------------- PARTICLES ----------------
+const particles = [];
+
+function createExplosion(x, y) {
+  const particleCount = Math.floor(Math.min(w, h) / 5); // scale with screen size
+  for (let i = 0; i < particleCount; i++) {
+    particles.push({
+      x,
+      y,
+      vx: (Math.random() - 0.5) * 15,
+      vy: (Math.random() - 0.7) * 15, // more upward force
+      life: 1,
+      size: Math.random() * 6 + 3
+    });
+  }
+}
+
+
+// ---------------- BOMB ----------------
+const bombs = [];
+
+function dropBomb(x) {
+  bombs.push({
+    x,
+    y: -80, // start higher for bigger screens
+    speed: Math.min(w, h) / 120  // scale speed with screen size
+  });
+}
+
+
+// ---------------- ANIMATION LOOP ----------------
+function animate(){
+  requestAnimationFrame(animate);
+  ctx.clearRect(0,0,w,h);
+
+  // ---- Bombs ----
+  for (let i = bombs.length - 1; i >= 0; i--) {
+    const b = bombs[i];
+
+    b.y += b.speed;
+
+    // Bomb body
+    ctx.beginPath();
+    ctx.fillStyle = "#0a1e2a";
+    ctx.shadowColor = "#00aaff";
+    ctx.shadowBlur = 35; // bigger glow
+    ctx.arc(b.x, b.y, Math.min(w, h)/80, 0, Math.PI * 2); // bigger bomb
+    ctx.fill();
+
+    // Impact at screen bottom
+    if (b.y >= h - 20) {
+      createExplosion(b.x, h - 20);
+      bombs.splice(i, 1);
+
+      // Shockwave ring
+      particles.push({
+        x: b.x,
+        y: h - 20,
+        vx: 0,
+        vy: 0,
+        life: 1,
+        size: Math.min(w, h)/15,
+        ring: true
+      });
+    }
+  }
+
+  // ---- Particles ----
+  for (let i = particles.length - 1; i >= 0; i--) {
+    const p = particles[i];
+
+    p.x += p.vx;
+    p.y += p.vy;
+    p.vy += 0.2; // gravity
+    p.life *= 0.94;
+
+    ctx.beginPath();
+    ctx.shadowColor = "#00aaff";
+    ctx.shadowBlur = 25;
+
+    if (p.ring) {
+      ctx.strokeStyle = `rgba(0,170,255,${p.life})`;
+      ctx.lineWidth = 4;
+      ctx.arc(
+        p.x,
+        p.y,
+        p.size * (1.3 - p.life),
+        0,
+        Math.PI * 2
+      );
+      ctx.stroke();
+    } else {
+      ctx.fillStyle = `rgba(0,170,255,${p.life})`;
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (p.life < 0.03) {
+      particles.splice(i, 1);
+    }
+  }
+}
+
+animate();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div id="overlay">Click to enter</div>
+
+  
+  <div class="container" >
+    <main style="margin-top: 80px;">
+      <!-- Profile Card -->
+<!-- ========== LEFT PROFILE CONTAINER (FULL IMPROVED) ========== -->
+<div style="
+  width: 420px;
+  border-radius: 20px;
+  overflow: hidden;
+  background: linear-gradient(180deg,#535353c7 30%,#000000);
+  box-shadow:
+    0 15px 40px rgba(0,0,0,0.8),
+    inset 0 0 30px rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+  position: relative;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: 0.4s;
+  border: 3px solid white;
+
+">
+
+  <!-- ===== Banner ===== -->
+  <div style="position: relative;">
+    <img src="R.jpg" style="
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      filter: brightness(0.7) contrast(1.15);
+    ">
+
+    <!-- Banner Gradient Fade -->
+    <div style="
+      position:absolute;
+      bottom:0;
+      width:100%;
+      height:90px;
+      background:linear-gradient(transparent,#1e1e1e);
+    "></div>
+  </div>
+
+  <!-- ===== Profile Section ===== -->
+  <div style="
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-top:-55px;
+    padding: 0 20px 20px 20px;
+  ">
+
+    <!-- Profile Picture -->
+    <img src="me2.gif" style="
+      width:110px;
+      height:110px;
+      z-index: 1;">
+
+    <!-- Name -->
+    <h1 style="
+      margin:8px 0 4px 0;
+      font-size:26px;
+      letter-spacing:1px;
+      color:white;
+      text-shadow:0 0 12px rgba(255, 255, 255, 0.322);
+    ">
+      AYMAN KHAN
+    </h1>
+
+    <!-- Subtitle -->
+    <div style="
+      display:flex;
+      align-items:center;
+      gap:8px;
+      background:rgba(0,0,0,0.35);
+      padding:6px 12px;
+      border-radius:8px;
+      box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
+    ">
+      <img src="not allowed.webp" style="width:16px;height:16px;">
+      <span style="
+        font-size:13px;
+        color:#e4e4e4;
+        opacity:0.9;
+      ">
+        There is no space for imperfects.....
+      </span>
+    </div>
+
+    <!-- ===== Badge Box ===== -->
+    <div style="
+      margin-top:8px;
+      border: 1px solid;
+      background:linear-gradient(135deg,#3a3a3a,#262626);
+      border-radius:12px;
+      padding:3px 8px 0px 8px;
+      display:flex;
+      gap:5px;
+      box-shadow:
+        inset 0 0 12px rgba(0,0,0,0.6),
+        0 6px 18px rgba(0,0,0,0.6);
+    ">
+
+      <!-- BADGE TEMPLATE -->
+      <!-- Copy this block to add more -->
+
+      <div style="position:relative;">
+        <img src="./icons/airt.png"
+          style="width:25px;height:25px;cursor:pointer;transition:.25s;"
+          onmouseover="this.style.transform='scale(1.35)';this.nextElementSibling.style.opacity='1'"
+          onmouseout="this.style.transform='scale(1)';this.nextElementSibling.style.opacity='0'">
+        <span style="
+          position:absolute;
+          bottom:-20px;
+          left:50%;
+          transform:translateX(-50%);
+          background:#111;
+          color:#fff;
+          font-size:10px;
+          padding:2px 6px ;
+          
+          border-radius:4px;
+          opacity:0;
+          transition:.25s;
+          white-space:nowrap;
+        ">Artist</span>
+      </div>
+
+      <div style="position:relative;">
+        <img src="./icons/dev.png"
+          style="width:25px;height:25px;cursor:pointer;transition:.25s;"
+          onmouseover="this.style.transform='scale(1.35)';this.nextElementSibling.style.opacity='1'"
+          onmouseout="this.style.transform='scale(1)';this.nextElementSibling.style.opacity='0'">
+        <span style="position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);background:#111;color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;opacity:0;transition:.25s;">Developer</span>
+      </div>
+
+      <div style="position:relative;">
+        <img src="./icons/py.png"
+          style="width:25px;height:25px;cursor:pointer;transition:.25s;"
+          onmouseover="this.style.transform='scale(1.35)';this.nextElementSibling.style.opacity='1'"
+          onmouseout="this.style.transform='scale(1)';this.nextElementSibling.style.opacity='0'">
+        <span style="position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);background:#111;color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;opacity:0;transition:.25s;">Python</span>
+      </div>
+
+      <div style="position:relative;">
+        <img src="./icons/web.png"
+          style="width:25px;height:25px;cursor:pointer;transition:.25s;"
+          onmouseover="this.style.transform='scale(1.35)';this.nextElementSibling.style.opacity='1'"
+          onmouseout="this.style.transform='scale(1)';this.nextElementSibling.style.opacity='0'">
+        <span style="position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);background:#111;color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;opacity:0;transition:.25s;">Web.Developer</span>
+      </div>
+
+      <div style="position:relative;">
+        <img src="./icons/gam.png"
+          style="width:25px;height:25px;cursor:pointer;transition:.25s;"
+          onmouseover="this.style.transform='scale(1.35)';this.nextElementSibling.style.opacity='1'"
+          onmouseout="this.style.transform='scale(1)';this.nextElementSibling.style.opacity='0'">
+        <span style="position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);background:#111;color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;opacity:0;transition:.25s;">Gamer</span>
+      </div>
+
+      <div style="position:relative;">
+        <img src="./icons/gim.png"
+          style="width:25px;height:25px;cursor:pointer;transition:.25s;"
+          onmouseover="this.style.transform='scale(1.35)';this.nextElementSibling.style.opacity='1'"
+          onmouseout="this.style.transform='scale(1)';this.nextElementSibling.style.opacity='0'">
+        <span style="position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);background:#111;color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;opacity:0;transition:.25s;">Gym</span>
+      </div>
+
+      <div style="position:relative;">
+        <img src="./icons/stu.png"
+          style="width:25px;height:25px;cursor:pointer;transition:.25s;"
+          onmouseover="this.style.transform='scale(1.35)';this.nextElementSibling.style.opacity='1'"
+          onmouseout="this.style.transform='scale(1)';this.nextElementSibling.style.opacity='0'">
+        <span style="position:absolute;bottom:-22px;left:50%;transform:translateX(-50%);background:#111;color:#fff;font-size:10px;padding:2px 6px;border-radius:4px;opacity:0;transition:.25s;">Student</span>
+      </div>
+
+    </div>
+
+    <!-- Role -->
+    <p style="
+      margin-top:18px;
+      font-size:14px;
+      color:#cfcfcf;
+      letter-spacing:.5px;
+    ">
+      Gamer | Programmer | Muslim
+    </p>
+
+    <!-- Motto -->
+    <p style="
+      margin-top:4px;
+      font-size:13px;
+      color:#9ad7ff;
+      text-shadow:0 0 10px rgba(0,150,255,0.35);
+    ">
+      I am 自豪 𝗔 𝗠𝗔𝗡 𝗢𝗙 𝗙𝗟𝗘𝗫 • • •
+    </p>
+
+
+    <p style="
+      margin: 20px 35px 2px 40px;
+      font-size:13px;
+      text-align: center;
+      
+    ">
+      Indeed, nothing is more dangerous than a recovered broken man. the soul is broken thousand times and recovered million times. Now only who deserves fear is Allah !
+    </p>
+  </div>
+</div>
+
+
+
+      <!-- Social Card -->
+      <div class="socialcard" style="border: 4px solid;">
+        <h2 style="text-align: center;">Follow Me</h2><br>
+        <ul class="social-list">
+          <li class="social-item" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0, 0, 0, 0.815)), url('https://wallpaperaccess.com/full/7986905.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center; border-radius: 5px;">
+            <a href="https://instagram.com/real_ayman000" target="_blank" class="social-link">
+              <img src="Instagram.png" alt="Instagram" style="border-radius: 0px;">
+              <span>自豪 A MAN OF FLEX • • •</span>
+            </a>
+            <a href="https://instagram.com/real_ayman000" target="_blank" class="social-link">
+            <button class="follow-btn">Follow</button></a>
+          </li>
+          <li class="social-item" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0, 0, 0, 0.815)), url('https://static.vecteezy.com/system/resources/thumbnails/021/183/978/original/islamic-flag-the-tawheed-flag-seamless-looping-background-looped-bump-texture-cloth-waving-slow-motion-3d-rendering-free-video.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center; border-radius: 5px;">
+            <a href="https://www.facebook.com/ay.man.351960" target="_blank" class="social-link">
+              <img src="facebook.webp" alt="Facebook">
+              <span>Ayman Khan</span>
+            </a> <a href="https://www.facebook.com/ay.man.351960" target="_blank" class="social-link">
+            <button class="follow-btn">Follow</button></a>
+          </li>
+          <li class="social-item" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0, 0, 0, 0.815)), url('https://tse3.mm.bing.net/th/id/OIP.DDTjOF8XslXwB1I-OReXdQHaC9?cb=ucfimg2ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3'); background-size: cover; background-repeat: no-repeat; background-position: center; border-radius: 5px;">
+            <a href="https://twitter.com/@AymanKhan873277
+            " target="_blank" class="social-link">
+              <img src="x.png" alt="X">
+              <span>AymanKhan</span>
+            </a><a href="https://twitter.com/@AymanKhan873277
+            " target="_blank" class="social-link">
+            <button class="follow-btn">Follow</button></a>
+          </li>
+
+
+
+          <li class="social-item" style="background: linear-gradient(rgba(0, 0, 0, 0.849), rgba(0, 0, 0, 0.897)), url('https://tse1.mm.bing.net/th/id/OIP.WNXzWZ9jFnXAARYG8vdagAHaEN?cb=ucfimg2ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3'); background-size: cover; background-repeat: no-repeat; background-position: center; border-radius: 5px;">
+            <a href="https://steamcommunity.com/id/ayman-flex/" target="_blank" class="social-link">
+              <img src="steam.png" alt="steam">
+              <span>自豪 𝗙𝗟𝗘𝗫 • • •</span>
+            </a>
+            <a href="https://steamcommunity.com/id/ayman-flex/" target="_blank" class="social-link">
+            <button class="follow-btn">Follow </button></a>
+          </li>
+
+
+          <li class="social-item" style="background: linear-gradient(rgba(0, 0, 0, 0.582), rgba(0, 0, 0, 0.884)), url('https://tse4.mm.bing.net/th/id/OIP.5xqxloSoWDKkmxcaAUa91gHaDS?cb=ucfimg2ucfimg=1&w=960&h=427&rs=1&pid=ImgDetMain&o=7&rm=3'); background-size: cover; background-repeat: no-repeat; background-position: center; border-radius: 5px;">
+            <a href="https://www.xbox.com/en-us/play/user/Aymankhan98" target="_blank" class="social-link">
+              <img src="xbox.png" alt="xbox1">
+              <span>Aymankhan98</span>
+            </a>
+            <a href="https://www.xbox.com/en-us/play/user/Aymankhan98" target="_blank" class="social-link">
+            <button class="follow-btn">Follow </button></a>
+          </li>
+
+          <li class="social-item" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0, 0, 0, 0.815)), url('https://images5.alphacoders.com/929/thumb-1920-929552.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center; border-radius: 5px;" >
+            <a href="https://www.xbox.com/en-us/play/user/Aymankhan99" target="_blank" class="social-link">
+              <img src="xbox.png" alt="xbox2">
+              <span>Aymankhan99</span>
+            </a>
+            <a href="https://www.xbox.com/en-us/play/user/Aymankhan99" target="_blank" class="social-link">
+            <button class="follow-btn but">Follow </button></a>
+          </li>
+
+
+          <li class="social-item" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0, 0, 0, 0.815)), url('https://img.freepik.com/free-vector/elegant-upholstery-sofa-pattern-premium-leather_1017-53682.jpg'); background-size: cover; background-repeat: no-repeat; background-position: center; border-radius: 5px;" >
+            <a href="https://discord.com/channels/@me/1339278090408431728" target="_blank" class="social-link">
+              <img src="dis.png" alt="discord" style="background-color: white;">
+              <span>a_man_of_flex.exe</span>
+            </a>
+            <a href="https://discord.com/channels/@me/1339278090408431728" target="_blank" class="social-link">
+            <button class="follow-btn but">Find </button></a>
+          </li>
+
+            <li class="social-item" style="border-radius: 5px; display: flex; justify-content:center;"><a href="PC.html" target="_self" class="social-link" style="width: 100%; height: 100%;"><button class="follow-btn but" style="width: 100%; height: 100%; border: 3px solid rgb(0, 0, 0); background-color: rgb(247, 251, 255); color: black; font-weight: bolder;">M O R E   →</button>
+            </a>
+            </li>
+
+        </ul>
+      </div>
+
+
+    </main>
+  </div>
+
+
+
+
+
+
+
+
+
+   <script>
+    document.getElementById('overlay').addEventListener('click', function () {
+      this.classList.add('fade-out');
+    });
+  </script>
+
+  <script src="autoplay.js"></script>
+  <script src="index.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</body>
+</html>
+
+
+
+
